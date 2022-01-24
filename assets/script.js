@@ -60,7 +60,7 @@ var quizQuestions =
 
 //function to clear the card containing one question so that the next can populate
 function clearQuestion() {
-    
+    document.getElementById("choiceSpace").innerHTML = "";
 }
 
 //call current question in a function so that the card can clear before the next question appears
@@ -98,6 +98,7 @@ function createButton(appendElement, buttonText) {
 }
 
 function startQuiz() {
+  document.getElementById("strButton").innerHTML = "";
 
   var questionSpaceId = "questionSpace";
   var questionCounter = 0;
@@ -111,8 +112,59 @@ function startQuiz() {
   createButton(choiceSpace, quizQuestions[questionCounter].choices[0]);
   createButton(choiceSpace, quizQuestions[questionCounter].choices[1]);
   createButton(choiceSpace, quizQuestions[questionCounter].choices[2]);
+
+  document.getElementById("choiceSpace").addEventListener("click", nextQuestion);
+
+}
+
+function nextQuestion() {
+  clearQuestion();
+  var questionSpaceId = "questionSpace";
+  var questionCounter = 1;
+  var choiceSpaceId = "choiceSpace";
+  var choiceSpace = document.getElementById(choiceSpaceId);
+  console.log(quizQuestions);
+
+  // ask questions
+
+
+  setObjTextById(questionSpaceId, quizQuestions[questionCounter].question);
+  
+  createButton(choiceSpace, quizQuestions[questionCounter].choices[0]);
+  createButton(choiceSpace, quizQuestions[questionCounter].choices[1]);
+  createButton(choiceSpace, quizQuestions[questionCounter].choices[2]);
+
+  document.getElementById("choiceSpace").addEventListener("click", lastQuestion);
+  
+}
+
+function lastQuestion() {
+  clearQuestion();
+  var questionSpaceId = "questionSpace";
+  var questionCounter = 2;
+  var choiceSpaceId = "choiceSpace";
+  var choiceSpace = document.getElementById(choiceSpaceId);
+  console.log(quizQuestions);
+
+  // ask questions
+  setObjTextById(questionSpaceId, quizQuestions[questionCounter].question);
+  
+  createButton(choiceSpace, quizQuestions[questionCounter].choices[0]);
+  createButton(choiceSpace, quizQuestions[questionCounter].choices[1]);
+  createButton(choiceSpace, quizQuestions[questionCounter].choices[2]);
+
+  document.getElementById("choiceSpace").addEventListener("click", getScore);
+
+
+}
+
+function getScore() {
+  clearQuestion();
+  document.getElementById("questionSpace").innerHTML = "";
 }
 
 //actions
 document.getElementById("strButton").addEventListener("click", countDown);
 document.getElementById("strButton").addEventListener("click", startQuiz);
+
+
