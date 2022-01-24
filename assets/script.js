@@ -33,7 +33,28 @@ use study session app for the initials and score input
 //variables
 var timeLeft = 35;
 var timeEl = document.getElementById("timer");
-var quizQuestion = 
+var userChoices = document.getElementsByTagName("input[type:button]");
+var quizQuestions = 
+[
+  {
+    question: "What is the color of the sky when it is sunny?",
+    choices: ["Red", "Green", "Blue"],
+    answer: 1
+  },
+  
+  {
+    question: "How old is the earth?",
+    choices: ["12 million years", "4.54 billion years", "6,000 years"],
+    answer: 2
+  },
+
+  {
+    question: "Are the dinosaurs extinct?",
+    choices: ["Maybe", "Yes", "No"],
+    answer: 2
+  }
+  
+];
 
 //functions
 
@@ -42,9 +63,10 @@ function clearQuestion() {
     
 }
 
-//questions in a function so that the card can clear before the next question appears
-function myQuestions() {
+//call current question in a function so that the card can clear before the next question appears
+function setObjTextById(objId, text) {
 
+  document.getElementById(objId).innerText=text;
 }
 
 //call function with the eventlistener at the bottom when start is clicked, starts the timer/countdown
@@ -68,6 +90,29 @@ function sendGameover() {
 }
 
 //logic
+function createButton(appendElement, buttonText) {
+  var btn = document.createElement("button");
+  btn.innerHTML = buttonText;
+  appendElement.appendChild(btn);
+  return btn;
+}
+
+function startQuiz() {
+
+  var questionSpaceId = "questionSpace";
+  var questionCounter = 0;
+  var choiceSpaceId = "choiceSpace";
+  var choiceSpace = document.getElementById(choiceSpaceId);
+  console.log(quizQuestions);
+
+  // ask questions
+  setObjTextById(questionSpaceId, quizQuestions[questionCounter].question);
+  
+  createButton(choiceSpace, quizQuestions[questionCounter].choices[0]);
+  createButton(choiceSpace, quizQuestions[questionCounter].choices[1]);
+  createButton(choiceSpace, quizQuestions[questionCounter].choices[2]);
+}
 
 //actions
 document.getElementById("strButton").addEventListener("click", countDown);
+document.getElementById("strButton").addEventListener("click", startQuiz);

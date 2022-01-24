@@ -18,7 +18,24 @@ h1 {
 
 .startButton {
     border: none;
-    background-color: rgb(63, 8, 216);
+    background-color: blueviolet;
+    border-radius: 50px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 6px 0px rgba(0, 0, 0, 0.2) 0px 1px 1px
+      0px;
+    color: hsl(195, 53%, 94%);
+    font-size: 20px;
+    line-height: 50px;
+    padding: 15px 50px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    text-align: center;
+    cursor: pointer;
+    margin: 20px;
+  }
+
+  span {
+    border: none;
+    background-color: blueviolet;
     border-radius: 50px;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 6px 0px rgba(0, 0, 0, 0.2) 0px 1px 1px
       0px;
