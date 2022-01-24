@@ -34,60 +34,70 @@ use study session app for the initials and score input
 var timeLeft = 35;
 var timeEl = document.getElementById("timer");
 var userChoices = document.getElementsByTagName("input[type:button]");
-var quizQuestions = 
-[
-  {
-    question: "What is the color of the sky when it is sunny?",
-    choices: ["Red", "Green", "Blue"],
-    answer: 1
-  },
-  
-  {
-    question: "How old is the earth?",
-    choices: ["12 million years", "4.54 billion years", "6,000 years"],
-    answer: 2
-  },
+var quizQuestions =
+  [
+    {
+      question: "What is the color of the sky when it is sunny?",
+      choices: ["Red", "Green", "Blue"],
+      answer: 2
+    },
 
-  {
-    question: "Are the dinosaurs extinct?",
-    choices: ["Maybe", "Yes", "No"],
-    answer: 2
-  }
-  
-];
+    {
+      question: "How old is the earth?",
+      choices: ["12 million years", "4.54 billion years", "6,000 years"],
+      answer: 1
+    },
+
+    {
+      question: "Are the dinosaurs extinct?",
+      choices: ["Maybe", "Yes", "No"],
+      answer: 1
+    }
+
+  ];
 
 //functions
 
 //function to clear the card containing one question so that the next can populate
 function clearQuestion() {
-    document.getElementById("choiceSpace").innerHTML = "";
+  document.getElementById("choiceSpace").innerHTML = "";
+}
+
+function wrongAnswer() {
+  timeLeft -= 5;
+}
+
+//function to clear the timer in getScore
+function clearTimerButton() {
+  document.getElementById("timer").innerHTML = "";
 }
 
 //call current question in a function so that the card can clear before the next question appears
 function setObjTextById(objId, text) {
 
-  document.getElementById(objId).innerText=text;
+  document.getElementById(objId).innerText = text;
 }
 
 //call function with the eventlistener at the bottom when start is clicked, starts the timer/countdown
 function countDown() {
-  var secondsLeft = 30;
-  var timerInterval = setInterval(function() {
-      secondsLeft--;
-      timeEl.textContent = secondsLeft;
-  
-      if(secondsLeft === 0) {
-        // Stops execution of action at set interval
-        clearInterval(timerInterval);
-        sendGameover();
-      }
-   }, 1000);
+  var timerInterval = setInterval(function () {
+    timeLeft--;
+    timeEl.textContent = timeLeft;
+
+    if (timeLeft === 0) {
+      timeLeft = 0;
+      clearInterval(timeLeft);
+      timeEl.textContent = timeLeft;
+      getScore();
+    }
+
+    if (getScore) {
+      clearInterval(timeLeft);
+    }
+  }, 1000);
 }
 
 //tell user time is at 0, enter initials and score into local storage
-function sendGameover() {
-  console.log("working fine");
-}
 
 //logic
 function createButton(appendElement, buttonText) {
@@ -108,12 +118,16 @@ function startQuiz() {
 
   // ask questions
   setObjTextById(questionSpaceId, quizQuestions[questionCounter].question);
-  
+
   createButton(choiceSpace, quizQuestions[questionCounter].choices[0]);
   createButton(choiceSpace, quizQuestions[questionCounter].choices[1]);
   createButton(choiceSpace, quizQuestions[questionCounter].choices[2]);
 
-  document.getElementById("choiceSpace").addEventListener("click", nextQuestion);
+  document.getElementById("choiceSpace", quizQuestions[0].choices[0]).addEventListener("click", wrongAnswer); 
+  document.getElementById("choiceSpace", quizQuestions[0].choices[1]).addEventListener("click", wrongAnswer); 
+  document.getElementById("choiceSpace", quizQuestions[0].choices[2]).addEventListener("click", nextQuestion);
+
+  console.log("My current score is " + timeLeft + " after the 1st question");
 
 }
 
@@ -129,13 +143,16 @@ function nextQuestion() {
 
 
   setObjTextById(questionSpaceId, quizQuestions[questionCounter].question);
-  
+
   createButton(choiceSpace, quizQuestions[questionCounter].choices[0]);
   createButton(choiceSpace, quizQuestions[questionCounter].choices[1]);
   createButton(choiceSpace, quizQuestions[questionCounter].choices[2]);
 
-  document.getElementById("choiceSpace").addEventListener("click", lastQuestion);
-  
+  document.getElementById("choiceSpace", quizQuestions[1].choices[0]).addEventListener("click", wrongAnswer); 
+  document.getElementById("choiceSpace", quizQuestions[1].choices[2]).addEventListener("click", wrongAnswer); 
+  document.getElementById("choiceSpace", quizQuestions[1].choices[1]).addEventListener("click", lastQuestion);
+
+  console.log("My current score is " + timeLeft + " after the 2nd question");
 }
 
 function lastQuestion() {
@@ -148,20 +165,33 @@ function lastQuestion() {
 
   // ask questions
   setObjTextById(questionSpaceId, quizQuestions[questionCounter].question);
-  
+
   createButton(choiceSpace, quizQuestions[questionCounter].choices[0]);
   createButton(choiceSpace, quizQuestions[questionCounter].choices[1]);
   createButton(choiceSpace, quizQuestions[questionCounter].choices[2]);
 
-  document.getElementById("choiceSpace").addEventListener("click", getScore);
+  document.getElementById("choiceSpace", quizQuestions[2].choices[0]).addEventListener("click", wrongAnswer);
+  document.getElementById("choiceSpace", quizQuestions[2].choices[0]).addEventListener("click", getScore); 
+ 
+  document.getElementById("choiceSpace", quizQuestions[2].choices[2]).addEventListener("click", wrongAnswer);
+  document.getElementById("choiceSpace", quizQuestions[2].choices[2]).addEventListener("click", getScore); 
+ 
+  document.getElementById("choiceSpace", quizQuestions[2].choices[1]).addEventListener("click", getScore);
 
+  console.log("My current score is " + timeLeft + " after the 3rd question");
 
 }
 
 function getScore() {
   clearQuestion();
   document.getElementById("questionSpace").innerHTML = "";
+  console.log("getScore is working");
+  var myScore = timeLeft;
+  console.log("myScore is " + myScore + "!");
+  document.getElementById("questionSpace").innerHTML = "Your score is: " + myScore + "! Enter your score and initials below.";
 }
+
+
 
 //actions
 document.getElementById("strButton").addEventListener("click", countDown);
