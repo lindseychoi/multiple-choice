@@ -70,6 +70,9 @@ function submitScore() {
   var scoreIndex = localStorage.getItem("scoreList");
   let scoreList = new Array();
   var myScore = localStorage.getItem("myScore");
+  var removeInputBox = document.getElementById("inputInitials");
+  
+  
 
   if (!initials) {
     alert("Name required. Try Again.");
@@ -78,14 +81,14 @@ function submitScore() {
   if (scoreIndex) {
     scoreList = JSON.parse(scoreIndex);
   }
-
+  removeInputBox.remove();
+  document.getElementById("questionSpace").innerHTML = "Score List:";
   scoreList.push({ name: initials, score: myScore });
   localStorage.setItem("scoreList", JSON.stringify(scoreList));
   console.log(JSON.parse(localStorage.getItem("scoreList")));
   inputBox.innerHTML = "";
   document.getElementById("submitInitials").innerHTML = "";
   let scorerList = document.getElementById("scorer-list");
-  console.log(scorerList.nodeType);
   var scorer;
   var newLi;
   for (let index = 0; index < scoreList.length; index++) {
@@ -258,6 +261,9 @@ function wrongToLastQues() {
 
   function getScore() {
     clearQuestion();
+    var removeTimer = document.getElementById("timer");
+    removeTimer.remove();
+
     document.getElementById("questionSpace").innerHTML = "";
     console.log("getScore is working");
     var myScore = timeLeft;
