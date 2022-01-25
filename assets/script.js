@@ -267,8 +267,13 @@ function wrongToLastQues() {
     document.getElementById("questionSpace").innerHTML = "";
     console.log("getScore is working");
     var myScore = timeLeft;
+
+    if (myScore < 0) {
+      myScore = 0
+    }
+
     console.log("myScore is " + myScore + "!");
-    document.getElementById("questionSpace").innerHTML = "Your score is: " + myScore + "! Enter your score and initials below.";
+    document.getElementById("questionSpace").innerHTML = "Your score is: " + myScore + "! Enter your initials below.";
     localStorage.setItem("myScore", myScore);
     var inputBox = document.createElement("input");
     var container = document.getElementById("initialsInput");
