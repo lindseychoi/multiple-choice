@@ -56,15 +56,35 @@ var quizQuestions =
 
   ];
 
+  const space1 = document.getElementById("choiceSpace")
+  const space2 = document.getElementById("choiceSpace1")
+  const space3 = document.getElementById("choiceSpace2")
+
 //functions
 
 //function to clear the card containing one question so that the next can populate
-function clearQuestion() {
-  document.getElementById("choiceSpace").innerHTML = "";
+
+function wrongToLastQues() {
+  timeLeft -= 5;
+  lastQuestion();
 }
 
-function wrongAnswer() {
-  timeLeft -= 5;
+function clearQuestion() {
+
+  space1.innerHTML = "";
+  space2.innerHTML = "";
+  space3.innerHTML = "";
+}
+
+function wrongToNextQues() {
+  console.log("i got clicked 1");
+  timeLeft -=5;
+  nextQuestion();
+}
+
+function wrongToGetScore() {
+  timeLeft -=5;
+  getScore();
 }
 
 //function to clear the timer in getScore
@@ -114,69 +134,91 @@ function startQuiz() {
   var questionCounter = 0;
   var choiceSpaceId = "choiceSpace";
   var choiceSpace = document.getElementById(choiceSpaceId);
+  var choiceSpaceId1 = "choiceSpace1";
+  var choiceSpace1 = document.getElementById(choiceSpaceId1);
+  var choiceSpaceId2 = "choiceSpace2";
+  var choiceSpace2 = document.getElementById(choiceSpaceId2);
   console.log(quizQuestions);
 
   // ask questions
-  setObjTextById(questionSpaceId, quizQuestions[questionCounter].question);
+  setObjTextById(questionSpaceId, quizQuestions[0].question);
 
   createButton(choiceSpace, quizQuestions[questionCounter].choices[0]);
-  createButton(choiceSpace, quizQuestions[questionCounter].choices[1]);
-  createButton(choiceSpace, quizQuestions[questionCounter].choices[2]);
+  createButton(choiceSpace1, quizQuestions[questionCounter].choices[1]);
+  createButton(choiceSpace2, quizQuestions[questionCounter].choices[2]);
 
-  document.getElementById("choiceSpace", quizQuestions[0].choices[0]).addEventListener("click", wrongAnswer); 
-  document.getElementById("choiceSpace", quizQuestions[0].choices[1]).addEventListener("click", wrongAnswer); 
-  document.getElementById("choiceSpace", quizQuestions[0].choices[2]).addEventListener("click", nextQuestion);
+  space1.addEventListener("click", wrongToNextQues); 
+  space2.addEventListener("click", wrongToNextQues); 
+  space3.addEventListener("click", nextQuestion);
 
   console.log("My current score is " + timeLeft + " after the 1st question");
 
 }
 
 function nextQuestion() {
+  console.log("next question is ran");
   clearQuestion();
+
+  space1.removeEventListener("click", wrongToNextQues);
+  space2.removeEventListener("click", wrongToNextQues);
+  space3.removeEventListener("click", nextQuestion);
+
+  // document.getElementById("choiceSpace").removeEventListener("click", wrongToNextQues);
+  // document.getElementById("choiceSpace1").removeEventListener("click", wrongToNextQues);
+  // document.getElementById("choiceSpace2").removeEventListener("click", nextQuestion);
+
   var questionSpaceId = "questionSpace";
   var questionCounter = 1;
   var choiceSpaceId = "choiceSpace";
   var choiceSpace = document.getElementById(choiceSpaceId);
+  var choiceSpaceId1 = "choiceSpace1";
+  var choiceSpace1 = document.getElementById(choiceSpaceId1);
+  var choiceSpaceId2 = "choiceSpace2";
+  var choiceSpace2 = document.getElementById(choiceSpaceId2);
   console.log(quizQuestions);
 
   // ask questions
-
-
-  setObjTextById(questionSpaceId, quizQuestions[questionCounter].question);
+  setObjTextById(questionSpaceId, quizQuestions[1].question);
 
   createButton(choiceSpace, quizQuestions[questionCounter].choices[0]);
-  createButton(choiceSpace, quizQuestions[questionCounter].choices[1]);
-  createButton(choiceSpace, quizQuestions[questionCounter].choices[2]);
+  createButton(choiceSpace1, quizQuestions[questionCounter].choices[1]);
+  createButton(choiceSpace2, quizQuestions[questionCounter].choices[2]);
 
-  document.getElementById("choiceSpace", quizQuestions[1].choices[0]).addEventListener("click", wrongAnswer); 
-  document.getElementById("choiceSpace", quizQuestions[1].choices[2]).addEventListener("click", wrongAnswer); 
-  document.getElementById("choiceSpace", quizQuestions[1].choices[1]).addEventListener("click", lastQuestion);
+  document.getElementById("choiceSpace").addEventListener("click", wrongToLastQues);
+  document.getElementById("choiceSpace1").addEventListener("click", lastQuestion); 
+  document.getElementById("choiceSpace2").addEventListener("click", wrongToLastQues);
+
 
   console.log("My current score is " + timeLeft + " after the 2nd question");
 }
 
 function lastQuestion() {
   clearQuestion();
+
+  space1.removeEventListener("click", wrongToLastQues);
+  space2.removeEventListener("click", lastQuestion);
+  space3.removeEventListener("click", wrongToLastQues);
+
   var questionSpaceId = "questionSpace";
   var questionCounter = 2;
   var choiceSpaceId = "choiceSpace";
   var choiceSpace = document.getElementById(choiceSpaceId);
+  var choiceSpaceId1 = "choiceSpace1";
+  var choiceSpace1 = document.getElementById(choiceSpaceId1);
+  var choiceSpaceId2 = "choiceSpace2";
+  var choiceSpace2 = document.getElementById(choiceSpaceId2);
   console.log(quizQuestions);
 
   // ask questions
-  setObjTextById(questionSpaceId, quizQuestions[questionCounter].question);
+  setObjTextById(questionSpaceId, quizQuestions[2].question);
 
   createButton(choiceSpace, quizQuestions[questionCounter].choices[0]);
-  createButton(choiceSpace, quizQuestions[questionCounter].choices[1]);
-  createButton(choiceSpace, quizQuestions[questionCounter].choices[2]);
+  createButton(choiceSpace1, quizQuestions[questionCounter].choices[1]);
+  createButton(choiceSpace2, quizQuestions[questionCounter].choices[2]);
 
-  document.getElementById("choiceSpace", quizQuestions[2].choices[0]).addEventListener("click", wrongAnswer);
-  document.getElementById("choiceSpace", quizQuestions[2].choices[0]).addEventListener("click", getScore); 
- 
-  document.getElementById("choiceSpace", quizQuestions[2].choices[2]).addEventListener("click", wrongAnswer);
-  document.getElementById("choiceSpace", quizQuestions[2].choices[2]).addEventListener("click", getScore); 
- 
-  document.getElementById("choiceSpace", quizQuestions[2].choices[1]).addEventListener("click", getScore);
+  document.getElementById("choiceSpace").addEventListener("click", wrongToGetScore);
+  document.getElementById("choiceSpace1").addEventListener("click", getScore); 
+  document.getElementById("choiceSpace2").addEventListener("click", wrongToGetScore);
 
   console.log("My current score is " + timeLeft + " after the 3rd question");
 
