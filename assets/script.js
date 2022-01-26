@@ -6,18 +6,18 @@ var timeEl = document.getElementById("timer");
 var userChoices = document.getElementsByTagName("input[type:button]");
 var quizQuestions =
 [{ 
-  question: "What is the color of the sky when it is sunny?",
-  choices: ["Red", "Green", "Blue"],
+  question: "Which of the following provides interactivity on web pages?",
+  choices: ["CSS", "HTML", "JavaScript"],
   answer: 2
 },
 {
-  question: "How old is the earth?",
-  choices: ["12 million years", "4.54 billion years", "6,000 years"],
+  question: "Which of the following adds style to a web page?",
+  choices: ["JavaScript", "CSS", "HTML"],
   answer: 1
 },
 {
-  question: "Are the dinosaurs extinct?",
-  choices: ["Maybe", "Yes", "No"],
+  question: "Which of the following adds the structure to a web page?",
+  choices: ["JavaScript", "HTML", "CSS"],
   answer: 1
 }];
 
@@ -63,29 +63,7 @@ function submitScore() {
     newLi.textContent = "Initials: " + scorer.name + " Score: " + scorer.score;
     scorerList.appendChild(newLi);
   }
-}
 
-function wrongToLastQues() {
-  timeLeft -= 5;
-  lastQuestion();
-}
-
-function clearQuestion() {
-
-  space1.innerHTML = "";
-  space2.innerHTML = "";
-  space3.innerHTML = "";
-}
-
-function wrongToNextQues() {
-  console.log("i got clicked 1");
-  timeLeft -= 5;
-  nextQuestion();
-}
-
-function wrongToGetScore() {
-  timeLeft -= 5;
-  getScore();
 }
 
 //function to clear the timer in getScore
@@ -116,6 +94,29 @@ function countDown() {
 
 // BUTTON FLOW LOGIC
 //////////////////////////////////////////////////////////
+
+function wrongToLastQues() {
+  timeLeft -= 5;
+  lastQuestion();
+}
+
+function clearQuestion() {
+
+  space1.innerHTML = "";
+  space2.innerHTML = "";
+  space3.innerHTML = "";
+}
+
+function wrongToNextQues() {
+  console.log("i got clicked 1");
+  timeLeft -= 5;
+  nextQuestion();
+}
+
+function wrongToGetScore() {
+  timeLeft -= 5;
+  getScore();
+}
 
 function createButton(appendElement, buttonText) {
   var btn = document.createElement("button");
