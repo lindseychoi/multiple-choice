@@ -6,4 +6,4 @@ For this assignment, I created a multiple choice quiz that was timed, took in th
 GitHub Pages Link:
 https://lindseychoi.github.io/multiple-choice/
 
-![screenshot of application](assets\multiple choice screenshot.jpg)
+![screenshot of application](./assets/multiple choice screenshot.jpg)
